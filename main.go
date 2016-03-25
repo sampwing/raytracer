@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/sampwing/raytracer/raytracer"
 )
 
 func drawPPM() {
@@ -25,9 +27,10 @@ func drawPPM() {
 			r := float64(i) / float64(nx)
 			g := float64(j) / float64(ny)
 			b := 0.2
-			ir := int(255.99 * r)
-			ig := int(255.99 * g)
-			ib := int(255.99 * b)
+			col := raytracer.NewVec3(r, g, b)
+			ir := int(255.99 * col.X())
+			ig := int(255.99 * col.Y())
+			ib := int(255.99 * col.Z())
 			line = fmt.Sprintf("%d %d %d\n", ir, ig, ib)
 			f.WriteString(line)
 		}
