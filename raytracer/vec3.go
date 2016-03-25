@@ -29,6 +29,12 @@ func (v Vec3) Z() float64 {
 }
 
 // operators
+func VectorsMatch(v1 Vec3, v2 Vec3) bool {
+	return v1.X() == v2.X() &&
+		v1.Y() == v2.Y() &&
+		v1.Z() == v2.Z()
+}
+
 func AddVectors(v1 Vec3, v2 Vec3) *Vec3 {
 	u := v1.Elements
 	w := v2.Elements
