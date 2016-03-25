@@ -19,7 +19,7 @@ func TestRayOrigin(t *testing.T) {
 	}
 	p := r.PointAtParameter(2.0)
 	nv := NewVec3(2.0, 4.0, 6.0)
-	if !VectorsMatch(*p, *nv) {
+	if !VectorsMatch(p, nv) {
 		t.Fatalf("failure w/ PointAtParameter: %v != %v\n", p, nv)
 	}
 }
