@@ -39,18 +39,30 @@ func ch1() {
 	f.Sync()
 }
 
+func hitSphere(center raytracer.Vec3, radius float64, r raytracer.Ray) bool {
+	objectCenter := raytracer.SubtractVectors(*r.Origin(), center)
+	a := raytracer.Dot(*r.Direction(), *r.Direction())
+	b := 2.0 * raytracer.Dot(*objectCenter, *r.Direction())
+	c := raytracer.Dot(*objectCenter, *objectCenter) - radius*radius
+	discriminant := b*b - 4*a*c
+	return discriminant > 0
+}
+
 func color(r raytracer.Ray) *raytracer.Vec3 {
+	if hitSphere(*raytracer.NewVec3(0.0, 0.0, -1.0), 0.5, r) {
+		return raytracer.NewVec3(1.0, 0.0, 0.0)
+	}
 	unitDirection := raytracer.UnitVector(*r.Direction())
 	t := 0.5 * (unitDirection.Y() + 1.0)
-
 	x := raytracer.NewVec3(1.0, 1.0, 1.0)
 	x.MultiplyBy(1.0 - t)
 	y := raytracer.NewVec3(0.5, 0.7, 1.0)
 	y.MultiplyBy(t)
 	return raytracer.AddVectors(*x, *y)
 }
-func ch3() {
-	filename := "ch3.ppm"
+
+func ch4() {
+	filename := "ch4.ppm"
 	f, err := os.Create(filename)
 	if err != nil {
 		log.Fatalf("unable to create %s", filename)
@@ -98,5 +110,5 @@ func ch3() {
 
 func main() {
 	ch1()
-	ch3()
+	ch4()
 }
